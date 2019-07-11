@@ -49,6 +49,10 @@ function createList(data) {
     //console.log(posts.length);
 
     sortByDateAsc(posts);
+    var k;
+    if(posts.length < 10)
+        postsLim = posts.length;
+    else postsLim = 10;
     for (let i = 0; i < postsLim; i++) {
         //console.log(posts[i].children[3].innerHTML);
         list = document.getElementById('list');
@@ -61,7 +65,7 @@ window.onscroll = function(){
         return;
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight){
         //console.log('bottom');
-        for (let i = postsLim; i < postsLim + 10; i++) {
+        for (let i = postsLim; i < postsLim + 10 && i < posts.length; i++) {
             list = document.getElementById('list');
             list.appendChild(posts[i]);
         }
@@ -111,7 +115,9 @@ descButton.addEventListener('click', sortDesc);
 let defaultBtn = document.getElementById('default');
 let setToDefault = function(){
     window.scrollTo(0,0);
-    postsLim = 10;
+    if(posts.length < 10)
+        postsLim = posts.length;
+    else postsLim = 10;
     let tmpList = document.getElementById("list").cloneNode(false);
     for (let i = 0; i < postsLim; i++) {
 		tmpList.appendChild(posts[i]);
