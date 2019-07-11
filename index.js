@@ -24,9 +24,7 @@ function createList(data) {
         title.innerHTML = post.title;
         description.innerHTML = post.description;
         img.src = post.image;
-        //let date = new Date(post.createdAt);
-        //createdAt.innerHTML = date.toGMTString();  
-        createdAt.innerHTML = new Date(post.createdAt);          
+        createdAt.innerHTML = new Date(post.createdAt);         
         for (let i = 0; i < post.tags.length; i++) {
             tags[i] = document.createElement("span");
             tags[i].innerHTML = "#" + post.tags[i].toLowerCase();
@@ -34,9 +32,10 @@ function createList(data) {
                 
         let remove = document.createElement("button");
         remove.innerHTML = "delete";
-        remove.onclick = function() {
+        removePost = function() {
             document.getElementById("list").removeChild(this.parentNode);
         };
+        remove.addEventListener('click', removePost);
                 
         li.appendChild(title);
         li.appendChild(description);
@@ -49,7 +48,7 @@ function createList(data) {
         return li;
         });
     //console.log(posts.length);
-    //sortByDateAsc(posts);
+    sortByDateAsc(posts);
     for (let i = 0; i < postsLim; i++) {
         list = document.getElementById('list');
 		list.appendChild(posts[i]);
@@ -70,26 +69,34 @@ window.onscroll = function(){
 }
 
 
-/*function sortByDateAsc(posts){
+function sortByDateAsc(posts){
     posts.sort((a, b) => {
         a = new Date(a.createdAt);
         b = new Date(b.createdAt);
         return (a - b);
     });
-    console.log("sort");
-}*/
+    //console.log("sort");
+}
 
 let defaultBtn = document.getElementById('default');
 let setToDefault = function(){
     window.scrollTo(0,0);
+    postsLim = 10;
+    let tmpList = document.getElementById("list").cloneNode(false);
     for (let i = 0; i < postsLim; i++) {
+		tmpList.appendChild(posts[i]);
+    }
+    document.getElementById("list").parentNode.replaceChild(tmpList, document.getElementById('list'));
+    /*for (let i = 0; i < postsLim; i++) {
         list = document.getElementById('list');
 		list.removeChild(posts[i]);
     }
+    console.log(list);
+    console.log("empty");
     postsLim = 10;
     for (let i = 0; i < postsLim; i++) {
         list = document.getElementById('list');
 		list.appendChild(posts[i]);
-    }
+    }*/
 };
 defaultBtn.addEventListener('click', setToDefault);
