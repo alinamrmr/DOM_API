@@ -13,14 +13,13 @@ fetch(url).then(
             console.log(JSON.stringify(error));
         });
 function createList(data) {
-	posts = data.map( post => {
+	posts = data.map(post => {
 	    let li = document.createElement("li");
         let title = document.createElement("h2");
         let description = document.createElement("p");
         let img = document.createElement("img");
         let createdAt = document.createElement("p");
         let tags = [];
-
         title.innerHTML = post.title;
         description.innerHTML = post.description;
         img.src = post.image;
@@ -48,8 +47,10 @@ function createList(data) {
         return li;
         });
     //console.log(posts.length);
+
     sortByDateAsc(posts);
     for (let i = 0; i < postsLim; i++) {
+        console.log(posts[i].children[3].innerHTML);
         list = document.getElementById('list');
 		list.appendChild(posts[i]);
 	}
@@ -68,11 +69,10 @@ window.onscroll = function(){
     }
 }
 
-
 function sortByDateAsc(posts){
     posts.sort((a, b) => {
-        a = new Date(a.createdAt);
-        b = new Date(b.createdAt);
+        a = new Date(a.children[3].innerHTML);
+        b = new Date(b.children[3].innerHTML);
         return (a - b);
     });
     //console.log("sort");
