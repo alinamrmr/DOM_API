@@ -1,0 +1,60 @@
+body{
+    background-color: darksalmon;
+}
+
+#list{
+    list-style: none;
+    display: grid;
+	grid-template-columns: repeat(auto-fit,350px);
+	grid-gap: 25px;
+	justify-content: center;
+}
+
+#list 
+li{
+    background-color: white;
+    border: 2px solid black;
+    max-width: 300px;
+    padding: 5px;
+    display: block;
+}
+
+#list
+li
+button{
+    display: block;
+    float: right;
+    background-color:red;
+    border: 2px solid brown;
+    font-variant: small-caps;
+    font-size: 1.5rem;
+    position: relative;
+    bottom: 0;
+}
+
+#list
+li
+span{
+    background-color: darksalmon;
+    border-radius: 2rem;
+    margin: 2px;
+}
+
+#list
+li
+h2{
+    text-align: center;
+    color: darkred;
+}
+
+#list
+li
+p{
+    font-style: italic;
+}
+
+#default{
+    position: fixed;
+    font-size: 2.5rem;
+    border-radius: 2rem;
+}
