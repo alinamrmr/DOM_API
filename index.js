@@ -1,11 +1,12 @@
 let posts = [];
+let postsLim = 10;
 const url = 'https://api.myjson.com/bins/152f9j';
+
 fetch(url).then(
 			response => {
 				response.json().then(data => {
                     const rawData = data.data;
                     createList(rawData);
-                    //console.log(posts.length);
 				});
 			}
         ).catch((error) => {
@@ -14,7 +15,7 @@ fetch(url).then(
 function createList(data) {
 	posts = data.map( post => {
 	    let li = document.createElement("li");
-        let title = document.createElement("h3");
+        let title = document.createElement("h2");
         let description = document.createElement("p");
         let img = document.createElement("img");
         let createdAt = document.createElement("p");
@@ -23,8 +24,9 @@ function createList(data) {
         title.innerHTML = post.title;
         description.innerHTML = post.description;
         img.src = post.image;
-        let date = new Date(post.createdAt);
-        createdAt.innerHTML = date.toGMTString();             
+        //let date = new Date(post.createdAt);
+        //createdAt.innerHTML = date.toGMTString();  
+        createdAt.innerHTML = new Date(post.createdAt);          
         for (let i = 0; i < post.tags.length; i++) {
             tags[i] = document.createElement("span");
             tags[i].innerHTML = "#" + post.tags[i].toLowerCase();
@@ -46,9 +48,11 @@ function createList(data) {
         li.appendChild(remove);
         return li;
         });
-    for (let i = 0; i < 10; i++) {
+    //console.log(posts.length);
+    //sortByDateAsc(posts);
+    for (let i = 0; i < postsLim; i++) {
         list = document.getElementById('list');
-		list.appendChild(posts.shift());
+		list.appendChild(posts[i]);
 	}
 }
 
@@ -57,9 +61,35 @@ window.onscroll = function(){
         return;
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight){
         //console.log('bottom');
-        for (let i = 0; i < 10; i++) {
+        for (let i = postsLim; i < postsLim + 10; i++) {
             list = document.getElementById('list');
-            list.appendChild(posts.shift());
+            list.appendChild(posts[i]);
         }
+        postsLim += 10;
     }
 }
+
+
+/*function sortByDateAsc(posts){
+    posts.sort((a, b) => {
+        a = new Date(a.createdAt);
+        b = new Date(b.createdAt);
+        return (a - b);
+    });
+    console.log("sort");
+}*/
+
+let defaultBtn = document.getElementById('default');
+let setToDefault = function(){
+    window.scrollTo(0,0);
+    for (let i = 0; i < postsLim; i++) {
+        list = document.getElementById('list');
+		list.removeChild(posts[i]);
+    }
+    postsLim = 10;
+    for (let i = 0; i < postsLim; i++) {
+        list = document.getElementById('list');
+		list.appendChild(posts[i]);
+    }
+};
+defaultBtn.addEventListener('click', setToDefault);
