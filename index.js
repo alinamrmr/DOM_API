@@ -1,10 +1,13 @@
 let posts = [];
+let postsLim = 10;
+//var list;
 const url = 'https://api.myjson.com/bins/152f9j';
 fetch(url).then(
 			response => {
 				response.json().then(data => {
                     const rawData = data.data;
-					createList(rawData);
+                    createList(rawData);
+                    //console.log(posts.length);
 				});
 			}
         ).catch((error) => {
@@ -44,9 +47,22 @@ function createList(data) {
         }
         li.appendChild(remove);
         return li;
-        })
+        });
     for (let i = 0; i < 10; i++) {
-        let list = document.getElementById('list');
+        list = document.getElementById('list');
 		list.appendChild(posts.shift());
 	}
+}
+
+window.onscroll = function(){
+    if(postsLim >= posts.length)
+        return;
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight){
+        //console.log('bottom');
+        for (let i = 0; i < 10; i++) {
+            list = document.getElementById('list');
+            list.appendChild(posts.shift());
+        }
+        postsLim += 10;
+    }
 }
