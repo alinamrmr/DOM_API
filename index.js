@@ -1,6 +1,4 @@
 let posts = [];
-let postsLim = 10;
-//var list;
 const url = 'https://api.myjson.com/bins/152f9j';
 fetch(url).then(
 			response => {
@@ -55,7 +53,7 @@ function createList(data) {
 }
 
 window.onscroll = function(){
-    if(postsLim >= posts.length)
+    if(posts.length === 0)
         return;
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight){
         //console.log('bottom');
@@ -63,6 +61,5 @@ window.onscroll = function(){
             list = document.getElementById('list');
             list.appendChild(posts.shift());
         }
-        postsLim += 10;
     }
 }
