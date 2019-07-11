@@ -50,7 +50,7 @@ function createList(data) {
 
     sortByDateAsc(posts);
     for (let i = 0; i < postsLim; i++) {
-        console.log(posts[i].children[3].innerHTML);
+        //console.log(posts[i].children[3].innerHTML);
         list = document.getElementById('list');
 		list.appendChild(posts[i]);
 	}
@@ -77,6 +77,36 @@ function sortByDateAsc(posts){
     });
     //console.log("sort");
 }
+
+function sortByDateDesc(posts){
+    posts.sort((a, b) => {
+        a = new Date(a.children[3].innerHTML);
+        b = new Date(b.children[3].innerHTML);
+        return (b - a);
+    });
+}
+
+let ascButton = document.getElementById('sort-asc');
+let sortAsc = function(){
+    sortByDateAsc(posts);
+    let tmpList = document.getElementById("list").cloneNode(false);
+    for (let i = 0; i < postsLim; i++) {
+		tmpList.appendChild(posts[i]);
+    }
+    document.getElementById("list").parentNode.replaceChild(tmpList, document.getElementById('list'));
+};
+ascButton.addEventListener('click', sortAsc);
+
+let descButton = document.getElementById('sort-desc');
+let sortDesc = function(){
+    sortByDateDesc(posts);
+    let tmpList = document.getElementById("list").cloneNode(false);
+    for (let i = 0; i < postsLim; i++) {
+		tmpList.appendChild(posts[i]);
+    }
+    document.getElementById("list").parentNode.replaceChild(tmpList, document.getElementById('list'));
+};
+descButton.addEventListener('click', sortDesc);
 
 let defaultBtn = document.getElementById('default');
 let setToDefault = function(){

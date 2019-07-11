@@ -6,8 +6,25 @@
         <link rel="stylesheet" type="text/css" href="index.css">
     </head>
     <body>
+        <div class = 'sort'>
+            <span class='ul-title'>Sort by date</span>
+            <ul>
+                <li>
+                    <button id = 'sort-asc'>
+                        Ascending
+                        <i class = "fas fa-sort-amount-down"></i>
+                    </button> 
+                </li>
+                <li>
+                    <button id = 'sort-desc'>
+                    Descending 
+                    <i class = "fas fa-sort-amount-up"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
         <button id="default">
-            <i class="fas fa-angle-double-up"></i>
+            <i class="fas fa-undo"></i>
         </button>
         <script src="index.js"></script>
         <ul id = "list"></ul>
